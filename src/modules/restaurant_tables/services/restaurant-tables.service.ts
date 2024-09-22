@@ -16,20 +16,23 @@ export class RestaurantTablesService {
   }
 
   public async findOne(id: number) {
-    return await this.restaurantTableRepo.findOne(id);
+    return await this.restaurantTableRepo.findOne(null, id);
   }
 
   public async update(
     id: number,
     updateRestaurantTableDto: UpdateRestaurantTableDto,
   ) {
-    const existRestaurantTable = await this.restaurantTableRepo.findOne(id);
+    const existRestaurantTable = await this.restaurantTableRepo.findOne(
+      null,
+      id,
+    );
     Object.assign(updateRestaurantTableDto, existRestaurantTable);
     return await this.restaurantTableRepo.update(id, updateRestaurantTableDto);
   }
 
   public async remove(id: number) {
-    await this.restaurantTableRepo.findOne(id);
+    await this.restaurantTableRepo.findOne(null, id);
     return await this.restaurantTableRepo.delete(id);
   }
 }

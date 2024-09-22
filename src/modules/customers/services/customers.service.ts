@@ -16,17 +16,17 @@ export class CustomersService {
   }
 
   public async findOne(id: number) {
-    return await this.customerRepo.findOne(id);
+    return await this.customerRepo.findOne(null, id);
   }
 
   public async update(id: number, updateCustomerDto: UpdateCustomerDto) {
-    const existCustomer = await this.customerRepo.findOne(id);
+    const existCustomer = await this.customerRepo.findOne(null, id);
     Object.assign(updateCustomerDto, existCustomer);
     return await this.customerRepo.update(id, updateCustomerDto);
   }
 
   public async remove(id: number) {
-    await this.customerRepo.findOne(id);
+    await this.customerRepo.findOne(null, id);
     return await this.customerRepo.delete(id);
   }
 }

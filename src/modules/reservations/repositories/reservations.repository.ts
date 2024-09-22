@@ -6,8 +6,11 @@ import { Injectable } from '@nestjs/common';
 export class ReservationRepository {
   constructor(private prisma: PrismaService) {}
 
-  public async insert(bookingReservationDto: BookingReservationDto) {
-    return await this.prisma.reservations.create({
+  public async insert(tx: any, bookingReservationDto: BookingReservationDto) {
+    if (tx === null) {
+      tx = this.prisma;
+    }
+    return await tx.reservations.create({
       data: {
         customer_id: bookingReservationDto.customer_id,
         table_id: bookingReservationDto.table_id,
@@ -18,8 +21,14 @@ export class ReservationRepository {
     });
   }
 
-  public async findByTimeSlot(bookingReservationDto: BookingReservationDto) {
-    return await this.prisma.reservations.findMany({
+  public async findByTimeSlot(
+    tx: any,
+    bookingReservationDto: BookingReservationDto,
+  ) {
+    if (tx === null) {
+      tx = this.prisma;
+    }
+    return await tx.reservations.findMany({
       where: {
         start_time: {
           gte: bookingReservationDto.start_time,

@@ -24,8 +24,11 @@ export class CustomerRepository {
     return await this.prisma.customers.findMany();
   }
 
-  public async findOne(id: number) {
-    return await this.prisma.customers.findUniqueOrThrow({
+  public async findOne(tx: any, id: number) {
+    if (tx === null) {
+      tx = this.prisma;
+    }
+    return await tx.customers.findUniqueOrThrow({
       where: {
         id: id,
       },

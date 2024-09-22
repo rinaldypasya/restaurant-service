@@ -21,8 +21,11 @@ export class RestaurantTableRepository {
     return await this.prisma.restaurant_tables.findMany();
   }
 
-  public async findOne(id: number) {
-    return await this.prisma.restaurant_tables.findUniqueOrThrow({
+  public async findOne(tx: any, id: number) {
+    if (tx === null) {
+      tx = this.prisma;
+    }
+    return await tx.restaurant_tables.findUniqueOrThrow({
       where: {
         id: id,
       },
