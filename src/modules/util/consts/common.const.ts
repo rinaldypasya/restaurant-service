@@ -1,0 +1,2 @@
+export const RESTAURANT_OPEN_HOUR = 8;
+export const RESTAURANT_CLOSED_HOUR = 16;
