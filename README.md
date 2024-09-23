@@ -50,3 +50,7 @@ $ npm run start:dev
 # production mode
 $ npm run start:prod
 ```
+
+## API Documentation
+
+Please visit <http://localhost:3000/api> to access swagger
